@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Beer</title>
+    <style>
+        .selectors{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 10px;
+        }
+
+        .selectors label{
+            margin-bottom: 5px;
+        }
+
+        .selectors input{
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .selectors input:focus{
+            outline: none;
+        }
+
+        input[type="submit"]{
+            background-color: #000;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover{
+            background-color: #333;
+        }
+
+        input[type="submit"]:focus{
+            outline: none;
+        }
+
+
+
+    </style>
+</head>
+<body>
+
+    <main>
+
+        <h1>
+            ADD BEER
+        </h1>
+
+        <div>
+            <form id="addBeer" action="#" method="post">
+                <div class="selectors">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name" placeholder="Name of the beer">
+
+                </div>
+
+                <div class="selectors">
+                    <label for="description">Description</label>
+                    <input type="text" name="description" id="description" placeholder="Description of the beer">
+
+                </div>
+
+                <div class="selectors">
+                    <label for="image">Image</label>
+                    <input type="text" name="image" id="image" placeholder="Image of the beer">
+    
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+                <input type="submit" value="Submit">
+            </form> 
+        </div>
+    </main>
+    <script>
+        var db;
+        window.addEventListener("load", async (event) => {
+            db = await initDB()
+
+            async function initDB() {
+                return new Promise((resolve, reject) => {
+                const request = indexedDB.open('BeerDB', 1);
+
+                request.onupgradeneeded = (event) => {
+                    const db = event.target.result;
+                    if(!db.ObjectStoreNames.contains('beers')){
+                        db.createObjectStore('beers', { keyPath: 'id' }).createIndex('name', 'name', { unique: false });
+                    }
+
+                    if(!db.ObjectStoreNames.contains("images")){
+                        db.createObjectStore("image", { keyPath: "id" }).createIndex("beerId", "beerId", { unique: false });
+                    }
+                };
+
+                request.onsuccess = (event) => {
+                    resolve(event.target.result);
+                };
+
+                request.onerror = (event) => {
+                    reject('Error opening IndexedDB');
+                };
+                });
+            }
+
+            
+        });
+
+        async function addbeer(name, description, image) {
+            const tx = db.transaction('beers', 'readwrite');
+            const store = tx.objectStore('beers')
+            console.log(name, description, image);
+            const beer = {
+                id: Date.now(),
+                name: name,
+                description: description,
+                image_url: image
+            };
+            console.log(beer);
+            store.add(beer);
+            tx.oncomplete = () => {
+                console.log('added beer to the store');
+            };
+            tx.onerror = (event) => {
+                console.log(event)
+            };
+
+
+        }
+
+        document.getElementById("addBeer").addEventListener("submit", (event) => {
+            event.preventDefault();
+            const name = document.getElementById("name").value;
+            const description = document.getElementById("description").value;
+            const image = document.getElementById("image").value;
+            addbeer(name, description, image);
+        });
+
+
+        
+        
+    </script>
+    
+</body>
+</html>
