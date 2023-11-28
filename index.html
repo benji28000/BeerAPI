@@ -116,31 +116,24 @@
       }
     
   });
-  // Vérifier si l'utilisateur peut installer l'application
+
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', (e) => {
-    // Empêcher l'affichage automatique de la fenêtre d'installation
     e.preventDefault();
-    // Stocker l'événement pour l'utiliser ultérieurement
     deferredPrompt = e;
-    // Afficher le bouton d'installation
     document.getElementById('installButton').style.display = 'block';
   });
 
-  // Gérer le clic sur le bouton d'installation
+
   document.getElementById('installButton').addEventListener('click', () => {
-    // Vérifier si l'événement d'installation est disponible
     if (deferredPrompt) {
-      // Afficher la fenêtre d'installation
       deferredPrompt.prompt();
-      // Attendre la réponse de l'utilisateur
       deferredPrompt.userChoice.then((choiceResult) => {
         if (choiceResult.outcome === 'accepted') {
           console.log('L\'utilisateur a accepté l\'installation de l\'application');
         } else {
           console.log('L\'utilisateur a refusé l\'installation de l\'application');
         }
-        // Nettoyer l'événement d'installation après utilisation
         deferredPrompt = null;
       });
     }
