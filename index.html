@@ -16,7 +16,7 @@
 </head>
 
 <body>
-  <button id="installButton">Installer l'application</button>
+  <button id="install" hidden>Install</button>
 
   <div class="container mt-5">
     <h1 class="mb-4">Beer List</h1>
@@ -117,27 +117,39 @@
     
   });
 
-  let deferredPrompt;
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('installButton').style.display = 'block';
+  let installPrompt = null;
+  const installButton = document.querySelector("#install");
+
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    installPrompt = event;
+    installButton.removeAttribute("hidden");
   });
-
-
-  document.getElementById('installButton').addEventListener('click', () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          console.log('L\'utilisateur a accepté l\'installation de l\'application');
-        } else {
-          console.log('L\'utilisateur a refusé l\'installation de l\'application');
-        }
-        deferredPrompt = null;
-      });
+  installButton.addEventListener("click", async () => {
+    if (!installPrompt) {
+      return;
     }
+  const result = await installPrompt.prompt();
+  console.log(`Install prompt was: ${result.outcome}`);
+    disableInAppInstallPrompt();
   });
+
+  function disableInAppInstallPrompt() {
+    installPrompt = null;
+    installButton.setAttribute("hidden", "");
+  }
+
+  window.addEventListener("appinstalled", () => {
+    disableInAppInstallPrompt();
+  });
+
+  function disableInAppInstallPrompt() {
+    installPrompt = null;
+    installButton.setAttribute("hidden", "");
+  }
+
+
+
     </script>
 </body>
 </html>
