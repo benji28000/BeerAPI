@@ -8,37 +8,37 @@
     "theme_color": "#000",
     "icons":[
         {
-            "src": "/beer/images/favicon-32x32.png",
+            "src": "images/favicon-32x32.png",
             "type": "image/png",
             "sizes": "32x32"
         },
         {
-            "src": "/beer/images/favicon-16x16.png",
+            "src": "images/favicon-16x16.png",
             "type": "image/png",
             "sizes": "16x16"
         },
         {
-            "src": "/beer/images/android-chrome-192x192.png",
+            "src": "images/android-chrome-192x192.png",
             "type": "image/png",
             "sizes": "192x192"
         },
         {
-            "src": "/beer/images/android-chrome-512x512.png",
+            "src": "images/android-chrome-512x512.png",
             "type": "image/png",
             "sizes": "512x512"
         },
         {
-            "src": "/beer/images/apple-touch-icon.png",
+            "src": "images/apple-touch-icon.png",
             "type": "image/png",
             "sizes": "180x180"
         },
         {
-            "src": "/beer/images/favicon.ico",
+            "src": "images/favicon.ico",
             "type": "image/x-icon",
             "sizes": "48x48"
         }, 
         {
-            "src": "/beer/images/mstile-150x150.png",
+            "src": "images/mstile-150x150.png",
             "type": "image/png",
             "sizes": "270x270"
         }
