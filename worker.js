@@ -5,7 +5,7 @@ const cacheName = 'my-pwa-cache-v1';
 
 const resourcesToCache = [
 
-  'beer.html',
+  'index.html',
   'script.js',
   'addbeer.html',
     'style.css',
