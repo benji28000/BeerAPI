@@ -9,7 +9,7 @@ const resourcesToCache = [
   'script.js',
   'addbeer.html',
     'style.css',
-    'manifest.json',
+
     '/images/favicon-32x32.png',
     '/images/favicon-16x16.png',
     '/images/apple-touch-icon.png',
