@@ -2,7 +2,7 @@
     "name": "beerAPI",
     "version": "1.0.0",
     "description": "API for beer",
-    "start_url": "/beerAPI",
+    "start_url": "/beerAPI/index.html",
     "display": "standalone",
     "background_color": "#fff",
     "theme_color": "#000",
